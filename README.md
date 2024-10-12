@@ -3,6 +3,6 @@ Find your perfect job with ease! Our platform connects job seekers with opportun
 
 
 ## .env
-PORT = 8000
-MONGO_URL =  (paste your database url here)
-SECRET_KEY = (write your secret_key here )
+PORT = 8000 <br>
+MONGO_URL =  (paste your database url here) <br>
+SECRET_KEY = (write your secret_key here ) <br>
