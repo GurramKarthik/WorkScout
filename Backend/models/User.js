@@ -14,8 +14,6 @@ const userSchema = new mongoose.Schema({
     },
     phoneNumber:{
         type:Number,
-        max:[10, "Enter Correct Number"],
-        min:[10, "Enter Correct Numer"],
         required:true
     },
     password:{

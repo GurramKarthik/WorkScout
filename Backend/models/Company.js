@@ -3,7 +3,8 @@ const companySchema = new mongoose.Schema({
     name : {
         type:String, 
         required:true, 
-        minLength: [2, "Company Name should be alteast 2 characters"]
+        minLength: [2, "Company Name should be alteast 2 characters"],
+        unique:true
     }, 
     description:{
         type:String, 
@@ -25,7 +26,6 @@ const companySchema = new mongoose.Schema({
     appliactions:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Application",
-        
     }]
 }, {timestamps:true})
 

@@ -1,6 +1,6 @@
 import { User } from "../models/User.js";
-import { bcrypt } from "bcryptjs";
-import { jwt } from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const Register = async (req, res) => {
   let { fullName, email, phoneNumber, password, role } = req.body;
@@ -71,7 +71,7 @@ export const Login = async (req, res) => {
     }
 
     // emaill found and comparing passwords
-    const isPasswordMath = await bcrypt.comapre(password, user.password);
+    const isPasswordMath = await bcrypt.compare(password, user.password);
     if (!isPasswordMath) {
       return res.status(400).json({
         message: "Incorrecct Email or password",
@@ -148,19 +148,30 @@ export const updateProfile = async (req, res) => {
     //email and role can't be changed
     let { fullName, phoneNumber, bio, skills } = req.body;
     let file = req.file;
-    if (!fullName || !phoneNumber || !bio || !skills) {
-      return res.status(400).json({
-        message: "Enter all the details required",
-        success: false,
-      });
-    }
 
     //cloudenary come here
 
     //conerting skills from string to array
-    const skillArray = skills.split(",");
-    const userId = req.id; //middelware authentaction. getting Id from cookie token
-    const user = await User.findById(userId);
+    let skillArray = [];
+    if (skills) {
+      skillArray = skills.split(",");
+    }
+    const userId = req.userId; //middelware authentaction. getting Id from cookie token
+    let user = await User.findByIdAndUpdate(
+      userId,
+      {
+        fullName,
+        phoneNumber,
+        profile: {
+          bio: bio,
+          skills: skillArray,
+        },
+      },
+      {
+        runValidators: true,
+        new: true,
+      }
+    );
 
     // Checking id user is present or not beacuse Data Integrity: The token may be valid, but the corresponding user might no longer exist in the database (e.g., if the user was deleted or their account was deactivated). Ensuring the user exists helps maintain data integrity
     if (!user) {
@@ -170,34 +181,33 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    //updateing data
-    user.fullName = fullName;
-    user.phoneNumber = phoneNumber;
-    user.profile.bio = bio;
-    user.profile.skills = skillArray;
+    // //updateing data
+    // if (fullName) user.fullName = fullName;
+    // if (phoneNumber) user.phoneNumber = phoneNumber;
+    // if (bio) user.profile.bio = bio;
+    // if (skills) user.profile.skills = skillArray;
 
     // code for resume Update
 
-    await user.save();
+    // await user.save();
 
     user = {
-        _id: user.id,
-        fullName: user.fullName,
-        email: user.email,
-        phoneNumber: user.phoneNumber,
-        role: user.role,
-        profile: user.profile,
-      };
+      _id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      role: user.role,
+      profile: user.profile,
+    };
 
     return res.status(200).json({
-        message:"Profile Updated Successfuly",
-        user,
-        success:true
-    })
-
+      message: "Profile Updated Successfuly",
+      user,
+      success: true,
+    });
   } catch (error) {
-    console.log(err);
-     res.status(500).json({
+    console.log(error);
+    res.status(500).json({
       message: "Sorry!!. Couldn't update the profile.",
       success: true,
     });
