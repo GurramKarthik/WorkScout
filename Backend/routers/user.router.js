@@ -9,7 +9,7 @@ const router = express.Router();
 router.route("/register").post(Register)
 router.route("/login").post(Login)
 router.route("/profile/update").put(isAuthenticated, updateProfile)
-router.route("/logout").get(LogOut)
+router.route("/logout").get(isAuthenticated, LogOut)
 
 // api call will be from 
 // http://localhost:8000/api/v1/user/register

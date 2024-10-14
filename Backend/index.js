@@ -8,6 +8,9 @@ import mongoDb from "./utils/db.js";
 import userRouter from "./routers/user.router.js";
 import companyRouter from "./routers/company.router.js";
 import jobRouter from "./routers/job.router.js";
+import applicationRouter from "./routers/application.router.js"
+
+
 const app = express();
 
 
@@ -30,6 +33,8 @@ app.use(cors(corsOptions));
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/company", companyRouter)
 app.use("/api/v1/user/job", jobRouter )
+app.use("/api/v1/user/application", applicationRouter)
+
 
 app.listen(port, ()=>{
     console.log(`listening to port ${port}....`);

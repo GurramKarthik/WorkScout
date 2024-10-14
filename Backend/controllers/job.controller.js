@@ -112,7 +112,7 @@ export const getJobs = async (req, res) => {
 
     const jobs = await Job.find(query).populate({
         path:"company"
-    }); // inseted of query we get jobs for perticular by company by using (company and user)
+    }).sort({createdAt:-1}); // inseted of query we get jobs for perticular by company by using (company and user)
 
     
     if (!jobs) {
