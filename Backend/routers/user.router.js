@@ -1,12 +1,13 @@
 import express from "express"
 import { Login, LogOut, Register, updateProfile } from "../controllers/user.conrtoller.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
+import { singleUpload } from "../middlewares/multer.js";
 
 const router = express.Router();
 
 
 // end points of user
-router.route("/register").post(Register)
+router.route("/register").post(singleUpload, Register)
 router.route("/login").post(Login)
 router.route("/profile/update").put(isAuthenticated, updateProfile)
 router.route("/logout").get(isAuthenticated, LogOut)

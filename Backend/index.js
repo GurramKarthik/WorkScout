@@ -21,9 +21,10 @@ const port =  process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookie());
+
 const corsOptions ={
-    origin:"https//localhost:5173", // this is react's url
-    Credential:true
+    origin:"http://localhost:5173", // this is react's url
+    credentials: true
 } 
 app.use(cors(corsOptions));
 

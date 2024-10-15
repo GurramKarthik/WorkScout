@@ -1,0 +1,61 @@
+#Nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5vmin 3vmin 1vmin 1.5vmax;
+
+}
+#Nav h2{
+    font-size: 2.5vmax;
+}
+#Nav h2 span{
+    color:#827;
+}
+
+#navOptions{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 4vmin;
+    list-style-type: none;
+}
+
+#navOptions .navBtnLogin {
+
+    background-color:crimson;
+    border: 1px solid #0001009a;
+    padding: 1vmin 1.5vmin 1vmin 1.5vmin ;
+    border-radius: 1vmin;
+    color: #fff;
+ 
+    &:hover {
+        background-color: rgb(165, 35, 61);
+        transition-duration: 0.4s;
+    }
+}
+
+#navOptions .navBtn {
+    background-color:cadetblue;
+    border: 1px solid #0001009a;
+    padding: 1vmin 1.5vmin 1vmin 1.5vmin ;
+    border-radius: 1vmin;
+    color: #fff;
+    &:hover {
+        background-color: rgb(83, 200, 204);
+        transition-duration: 0.4s;
+    }
+}
+
+#navProfile{
+    position: absolute;
+    right: 3vmin;
+    border: 1px solid darkorange;
+    border-radius: 2vmin;
+}
+
+.navProfileOptions{
+    display: flex;
+    align-items: center;
+    margin: 0.5vmin;
+    gap: 1vmin;
+}

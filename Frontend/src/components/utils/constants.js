@@ -1,0 +1,1 @@
+export const USER_END_PONIT = "http://localhost:8000/api/v1/user"
