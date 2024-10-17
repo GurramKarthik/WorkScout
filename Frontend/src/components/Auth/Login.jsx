@@ -1,20 +1,26 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import NavBar from "../shared/NavBar";
 import "../Css/form.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_END_PONIT } from "../utils/constants";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import store from "@/redux/store";
+import { setLoading } from "@/redux/authSlice";
+import { ClipLoader } from "react-spinners"; // loading animation 
 
 const Login = () => {
-
-  const  navigate = useNavigate();
+  const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
     password: "",
     role: "",
   });
+
+  const { loading } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
@@ -24,36 +30,35 @@ const Login = () => {
     event.preventDefault();
     console.log(input);
     try {
-      
-      const res = await axios.post(`${USER_END_PONIT}/login`, input, {
-        headers:{
-          "Content-Type":"application/json"
-        },
-        withCredentials:true
-      }).catch((error)=>{
-// axoius can handle responses only b/w 200 to 299. the responses having success = false is handles in catch block
-        toast.error(error.response.data.message || 'An error occurred', {
-          position: toast.TOP_RIGHT
+      dispatch(setLoading(true));
+      const res = await axios
+        .post(`${USER_END_PONIT}/login`, input, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        })
+        .catch((error) => {
+          // axoius can handle responses only b/w 200 to 299. the responses having success = false is handles in catch block
+          toast.error(error.response.data.message || "An error occurred", {
+            position: toast.TOP_RIGHT,
+          });
         });
-    
-      })
-      
-  
-      if(res.data.success){
+
+      if (res.data.success) {
         navigate("/");
         toast.success(res.data.message, {
-          position: toast.TOP_RIGHT
-        })
+          position: toast.TOP_RIGHT,
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message || 'An error occurred', {
-        position: toast.TOP_RIGHT
+      toast.error(error.response.data.message || "An error occurred", {
+        position: toast.TOP_RIGHT,
       });
-  
-      
+    } finally {
+      dispatch(setLoading(false));
     }
-
   };
 
   return (
@@ -120,7 +125,14 @@ const Login = () => {
           </div>
 
           <div style={{ marginTop: "2vmin" }}>
-            <button type="submit"> Login </button>
+            {loading ? (
+              <button id="formBtn">
+                <ClipLoader color="#3498db" size={25} />
+              </button>
+            ) : (
+              <button id="formBtn" type="submit"> Login </button>
+            )}
+
             <p style={{ textAlign: "center", marginTop: "2vmin" }}>
               Do not have an account? <Link to="/signup">Sign Up</Link>
             </p>

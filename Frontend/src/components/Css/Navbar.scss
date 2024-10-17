@@ -3,6 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 5vmin 3vmin 1vmin 1.5vmax;
+    
 
 }
 #Nav h2{
@@ -21,27 +22,30 @@
 }
 
 #navOptions .navBtnLogin {
-
-    background-color:crimson;
-    border: 1px solid #0001009a;
+    width: 5em;
+    height: 3em;
+    background-color:#ffde6a;
+    border: 1px solid rgba(95, 92, 92, 0.548);
     padding: 1vmin 1.5vmin 1vmin 1.5vmin ;
-    border-radius: 1vmin;
-    color: #fff;
+    border-radius: 5px;
+    color: #295174;
  
     &:hover {
-        background-color: rgb(165, 35, 61);
+        background-color: #ebc84c;
         transition-duration: 0.4s;
     }
 }
 
 #navOptions .navBtn {
-    background-color:cadetblue;
-    border: 1px solid #0001009a;
-    padding: 1vmin 1.5vmin 1vmin 1.5vmin ;
-    border-radius: 1vmin;
+    
+    height: 3em;
+    background-color: #3c4145;
+    border: 1px solid rgba(95, 92, 92, 0.548);
+    padding: 1vmin 2vmin 1vmin 2vmin ;
+    border-radius: 5px;
     color: #fff;
     &:hover {
-        background-color: rgb(83, 200, 204);
+        background-color: #474f57;
         transition-duration: 0.4s;
     }
 }

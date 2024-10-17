@@ -5,6 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_END_PONIT } from "../utils/constants.js";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import store from "@/redux/store";
+import { setLoading } from "@/redux/authSlice";
+import { ClipLoader } from "react-spinners";
+
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -16,6 +21,9 @@ const SignUp = () => {
     role: "",
     file: "",
   });
+
+  const { loading } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     setInput({ ...input, [event.target.name]: event.target.value });
@@ -39,6 +47,7 @@ const SignUp = () => {
     }
 
     try {
+      dispatch(setLoading(true));
       const res = await axios
         .post(`${USER_END_PONIT}/register`, formData, {
           headers: {
@@ -49,20 +58,20 @@ const SignUp = () => {
         .catch((error) => {
           // axoius can handle responses only b/w 200 to 299. the responses having success = false is handles in catch block
           toast.error(error.response.data.message || "An error occurred", {
-            position: toast.TOP_RIGHT
+            position: toast.TOP_RIGHT,
           });
         });
-
 
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message, {
-          position: toast.TOP_RIGHT
-        })
+          position: toast.TOP_RIGHT,
+        });
       }
-
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
   return (
@@ -168,7 +177,13 @@ const SignUp = () => {
           </div>
 
           <div>
-            <button type="submit"> Sign Up</button>
+            {loading ? (
+              <button id="formBtn">
+                <ClipLoader color="#3498db" size={50} />
+              </button>
+            ) : (
+              <button id="formBtn" type="submit"> Sign Up</button>
+            )}
             <p style={{ textAlign: "center" }}>
               Already have an account? <Link to="/login">Login</Link>
             </p>
