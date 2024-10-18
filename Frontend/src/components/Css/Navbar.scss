@@ -53,8 +53,13 @@
 #navProfile{
     position: absolute;
     right: 3vmin;
-    border: 1px solid darkorange;
-    border-radius: 2vmin;
+    border: 2px solid rgba(94, 88, 88, 0.747);
+    border-radius: 20px 0px 20px 20px;
+    padding: 1em 1.5em;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 2vmin;
 }
 
 .navProfileOptions{
@@ -62,4 +67,6 @@
     align-items: center;
     margin: 0.5vmin;
     gap: 1vmin;
+    text-transform: capitalize;
 }
+

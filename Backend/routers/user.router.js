@@ -9,7 +9,7 @@ const router = express.Router();
 // end points of user
 router.route("/register").post(singleUpload, Register)
 router.route("/login").post(Login)
-router.route("/profile/update").put(isAuthenticated, updateProfile)
+router.route("/profile/update").put( singleUpload, isAuthenticated, updateProfile)
 router.route("/logout").get(isAuthenticated, LogOut)
 
 // api call will be from 

@@ -1,6 +1,8 @@
 import { User } from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const Register = async (req, res) => {
   let { fullName, email, phoneNumber, password, role } = req.body;
@@ -129,7 +131,6 @@ export const Login = async (req, res) => {
 
 export const LogOut = async (req, res) => {
   try {
-    
     return res.status(200).cookie("token", "", { maxAge: 0 }).json({
       message: "Logged Out successfully",
       success: true,
@@ -147,13 +148,16 @@ export const LogOut = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     //email and role can't be changed
-    let { fullName, phoneNumber, bio, skills } = req.body;
-    let file = req.file;
+    let { fullName, phoneNumber, email, bio, skills } = req.body;
 
     //cloudenary come here
+    let file = req.file;
+ 
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 
     //conerting skills from string to array
-    let skillArray = [];
+    let skillArray = []; 
     if (skills) {
       skillArray = skills.split(",");
     }
@@ -162,6 +166,7 @@ export const updateProfile = async (req, res) => {
       userId,
       {
         fullName,
+        email,
         phoneNumber,
         profile: {
           bio: bio,
@@ -182,15 +187,13 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    // //updateing data
-    // if (fullName) user.fullName = fullName;
-    // if (phoneNumber) user.phoneNumber = phoneNumber;
-    // if (bio) user.profile.bio = bio;
-    // if (skills) user.profile.skills = skillArray;
 
     // code for resume Update
-
-    // await user.save();
+    if(cloudResponse){
+      user.profile.resume = cloudResponse.secure_url
+      user.profile.resumeOriginalName = file.originalname
+    }
+    await user.save();
 
     user = {
       _id: user.id,

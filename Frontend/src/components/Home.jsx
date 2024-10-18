@@ -7,7 +7,7 @@ import Footer from './Footer'
 
 const Home = () => {
   return (
-    <div id='home`'>
+    <div id='home'>
         <NavBar/>
         <HeroSection/>
         <Category/>

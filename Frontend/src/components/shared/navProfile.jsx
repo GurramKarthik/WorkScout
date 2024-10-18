@@ -3,8 +3,13 @@ import "../Css/Navbar.scss"
 import avatar from "../../assets/avatar.png"
 import logout from '../../assets/logout.png'
 import profile from '../../assets/profile.png'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const NavProfile = () => {
+
+  const {user} = useSelector(store => store.auth)
+
   return (
     <div id='navProfile'>
         <div className='navProfileOptions'>
@@ -14,8 +19,8 @@ const NavProfile = () => {
                 borderRadius: "50%",
               }} />
               <div>
-                <p> Karthik gurram</p>
-                <p style={{color:"#0009"}}>Lorem ipsum dolor sit amet.</p>
+                <p> {user?.fullName}</p>
+                <p style={{color:"#0009"}}>{user?.profile?.bio}</p>
               </div>
         </div>
         <div className='navProfileOptions'>
@@ -24,7 +29,7 @@ const NavProfile = () => {
                 height: "2.5vmax",
                 borderRadius: "50%",
               }} />
-                <p> View profile </p>
+                <Link to="/profile" style={{textDecoration:"none",color:"black"}}><p> View profile </p></Link>
         </div>
         <div className='navProfileOptions'>
 
@@ -33,7 +38,7 @@ const NavProfile = () => {
                 height: "2.5vmax",
                 borderRadius: "50%",
               }} />
-                <p> logout</p>
+                <p> <Link to="/" style={{textDecoration:"none",color:"black"}}>logout</Link> </p>
         </div>
         
     </div>

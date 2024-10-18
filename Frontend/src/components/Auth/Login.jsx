@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import store from "@/redux/store";
-import { setLoading } from "@/redux/authSlice";
+import { setLoading, setUser } from "@/redux/authSlice";
 import { ClipLoader } from "react-spinners"; // loading animation 
 
 const Login = () => {
@@ -28,7 +28,6 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(input);
     try {
       dispatch(setLoading(true));
       const res = await axios
@@ -46,6 +45,7 @@ const Login = () => {
         });
 
       if (res.data.success) {
+        dispatch(setUser(res.data.user));
         navigate("/");
         toast.success(res.data.message, {
           position: toast.TOP_RIGHT,

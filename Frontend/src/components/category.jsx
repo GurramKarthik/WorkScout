@@ -1,6 +1,7 @@
 import React from "react";
 import "./home.scss";
 import developer from "../assets/developer.png";
+import { Link } from "react-router-dom";
 
 
 const category = [1, 2, 3, 4, 5, 6];
@@ -24,7 +25,7 @@ const Category = () => {
       })}
       <div className="Categ exploreJobs">
             <img src={developer} alt="developer" />
-            <p >Explore <span style={{color:"#4e8397"}} >&#8599;</span> </p>
+            <p > <Link to="/jobs" >Explore</Link>  <span style={{color:"#4e8397"}} >&#8599;</span> </p>
       </div>
     </div>
   </div>

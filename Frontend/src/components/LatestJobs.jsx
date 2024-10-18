@@ -1,6 +1,6 @@
 import React from "react";
 import search from "../assets/search.png";
-import Job from "./Job";
+import JobCard from "./JobCard";
 
 const jobs = [1,2,3,4,5,6,7,8];
 
@@ -31,7 +31,7 @@ const LatestJobs = () => {
     <div id="jobs">
         {
             jobs.slice(0,6).map((job, index)=>{
-                return <Job key={index}/>
+                return <JobCard key={index}/>
             })
         }
     </div >

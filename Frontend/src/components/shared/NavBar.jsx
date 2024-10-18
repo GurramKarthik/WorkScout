@@ -3,10 +3,11 @@ import "../Css/Navbar.scss";
 import avatar from "../../assets/avatar.png";
 import NavProfile from "./NavProfile.jsx";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 const NavBar = () => {
-  let user = false;
+  const { user } = useSelector(store => store.auth);
   const [isProfile, setIsProfile] = useState(false);
 
   const toogleProfile = () => {
@@ -21,13 +22,13 @@ const NavBar = () => {
         Work<span>Scout</span>
       </h2>
       <div id="navOptions">
-        <li><Link to="/">Home</Link></li>
-        <li>Jobs</li>
-        <li>Browse</li>
+        <li><Link to="/" style={{textDecoration:"none", color:"black"}}>Home</Link></li>
+        <li><Link to="/jobs" style={{textDecoration:"none", color:"black"}}>Jobs</Link> </li>
+        <li><Link to="/browse" style={{textDecoration:"none", color:"black"}}>Browse</Link></li>
         {user ? (
           // If user is logged in
           
-          <div>
+          <div id="profilePic">
             <img
               src={avatar}
               alt="profilePic"
@@ -35,10 +36,11 @@ const NavBar = () => {
                 width: "2.5vmax",
                 height: "2.5vmax",
                 borderRadius: "50%",
+                cursor:"pointer"
+
               }}
               onClick={toogleProfile}
             />
-            
           </div>
           
         ) : (
@@ -59,8 +61,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-/*
-
-
-*/

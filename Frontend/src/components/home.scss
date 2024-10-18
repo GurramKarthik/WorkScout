@@ -1,6 +1,5 @@
 #home{
   color: #383838;
-
 }
 #main1{
     width: 100%;
@@ -11,7 +10,6 @@
     padding: 4vmin;
     background-color: #FAFAFA;
     text-transform: capitalize;
-    
     
 }
 
@@ -104,7 +102,7 @@
     padding: 1.2em 2em;
     border-radius: 30px;
     display: flex;
-    border: 1px solid rgba(95, 92, 92, 0.548) ;
+    border: 2px solid rgba(134, 128, 128, 0.548) ;
     justify-content: space-between;
     align-items: center;
     gap: 0.5em;
@@ -113,7 +111,7 @@
     &:hover{
         transition-duration: 0.5s;
         // box-shadow: 2px 2px 7px rgba(92, 90, 90, 0.534);
-        border: 1px solid rgb(95, 92, 92);
+        border: 2px solid rgb(44, 42, 42);
 
     }
 }
