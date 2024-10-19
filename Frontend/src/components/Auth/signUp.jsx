@@ -30,7 +30,8 @@ const SignUp = () => {
   };
 
   const handleProfilePic = (event) => {
-    setInput({ ...input, file: event.target.file?.[0] });
+    const file = event.target.files?.[0];
+    setInput({...input, file})
   };
 
   const handleSubmit = async (event) => {
@@ -42,11 +43,16 @@ const SignUp = () => {
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("password", input.password);
     formData.append("role", input.role);
+
     if (input.file) {
+      console.log("file present")  
       formData.append("file", input.file);
+    }else{
+      console.log("file not present")  
     }
 
     try {
+
       dispatch(setLoading(true));
       const res = await axios
         .post(`${USER_END_PONIT}/register`, formData, {
@@ -77,7 +83,6 @@ const SignUp = () => {
   return (
     <div>
       <NavBar />
-
       <div id="signUp">
         <form id="signUpForm" onSubmit={handleSubmit}>
           <h1>Sign Up</h1>
@@ -172,6 +177,7 @@ const SignUp = () => {
               type="file"
               id="profilePic"
               accept="image/*"
+              name="file"
               onChange={handleProfilePic}
             />
           </div>
@@ -179,7 +185,7 @@ const SignUp = () => {
           <div>
             {loading ? (
               <button id="formBtn">
-                <ClipLoader color="#3498db" size={50} />
+                <ClipLoader color="#3498db" size={40} />
               </button>
             ) : (
               <button id="formBtn" type="submit"> Sign Up</button>

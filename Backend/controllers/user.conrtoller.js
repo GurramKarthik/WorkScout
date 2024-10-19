@@ -14,6 +14,15 @@ export const Register = async (req, res) => {
     });
   }
 
+  const file = req.file; // we get file from multer.js
+  const fileDate = {
+      fileUri:"",
+      cloudResponse: null
+  }
+  if(file){
+    fileDate.fileUri = getDataUri(file)
+    fileDate.cloudResponse = await cloudinary.uploader.upload(fileDate.fileUri.content)
+  }
   // if user already exits
   let user = await User.findOne({ email });
   if (user) {
@@ -32,9 +41,20 @@ export const Register = async (req, res) => {
     phoneNumber: phoneNumber,
     password: hashedPassword,
     role: role,
+    profile:{
+      profilePhoto: fileDate.cloudResponse ? fileDate.cloudResponse.secure_url : null ,
+    }
   })
     .then(() => {
-      return res.status(200).json({
+
+      if(!fileDate.cloudResponse){
+        return res.status(202).json({
+          message: "Account created Successfully. But profile photo not updated. Dont worry!, You can edit in profile page.",
+          success: true,
+        });
+      }
+
+      return res.status(201).json({
         message: "Account created Successfully",
         success: true,
       });
@@ -151,10 +171,17 @@ export const updateProfile = async (req, res) => {
     let { fullName, phoneNumber, email, bio, skills } = req.body;
 
     //cloudenary come here
-    let file = req.file;
+    const file = req.file; // we get file from multer.js
+    const fileDate = {
+        fileUri:"",
+        cloudResponse: null
+    }
+    if(file){
+      fileDate.fileUri = getDataUri(file)
+      fileDate.cloudResponse = await cloudinary.uploader.upload(fileDate.fileDate.fileUri.content)
+    }
  
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+   
 
     //conerting skills from string to array
     let skillArray = []; 
@@ -189,8 +216,8 @@ export const updateProfile = async (req, res) => {
 
 
     // code for resume Update
-    if(cloudResponse){
-      user.profile.resume = cloudResponse.secure_url
+    if(fileDate.cloudResponse){
+      user.profile.resume = fileDate.cloudResponse.secure_url
       user.profile.resumeOriginalName = file.originalname
     }
     await user.save();
@@ -213,7 +240,7 @@ export const updateProfile = async (req, res) => {
     console.log(error);
     res.status(500).json({
       message: "Sorry!!. Couldn't update the profile.",
-      success: true,
+      success: false,
     });
   }
 };

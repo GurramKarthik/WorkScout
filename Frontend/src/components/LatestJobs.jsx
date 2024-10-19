@@ -1,10 +1,12 @@
 import React from "react";
 import search from "../assets/search.png";
 import JobCard from "./JobCard";
+import { useSelector } from "react-redux";
 
-const jobs = [1,2,3,4,5,6,7,8];
+// const jobs = [1,2,3,4,5,6,7,8];
 
 const LatestJobs = () => {
+  const {allJobs} = useSelector(store => store.job);
   return (
     <div id="JobsSection">
       <h1> Find A <span style={{color:"#4ea5c5"}}>Sutibale Job</span>  here </h1>
@@ -30,8 +32,8 @@ const LatestJobs = () => {
 
     <div id="jobs">
         {
-            jobs.slice(0,6).map((job, index)=>{
-                return <JobCard key={index}/>
+           allJobs.length <=0 ? <span>No Jobs avilable</span> : allJobs.slice(0,6).map((job)=>{
+                return <JobCard key={job._id} job={job}/>
             })
         }
     </div >

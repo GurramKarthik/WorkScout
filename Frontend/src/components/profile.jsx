@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 const application = [1, 2, 3, 4];
 
 const Profile = () => {
-  const { user, loading } = useSelector((store) => store.auth);
+  const { user, loading } = useSelector(store => store.auth);
   const dispatcher = useDispatch();
 
   const [edit, setEdit] = useState(false);
@@ -82,6 +82,8 @@ const Profile = () => {
           position: toast.BOTTOM_RIGHT,
         });
 
+        setInput({...user})
+
         handleEdit();
       }
     } catch (error) {
@@ -106,7 +108,7 @@ const Profile = () => {
               <div id="header">
                 <div id="HeaderLeft">
                   <div id="profileImg">
-                    <img src={avatar} alt="profile Pic" />
+                    <img src={user?.profile?.profilePhoto} alt="profile Pic" />
                   </div>
                   <div className="prifileName">
                     <h2>{user?.fullName}</h2>
