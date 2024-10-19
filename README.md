@@ -8,6 +8,6 @@ MONGO_URL =  (paste your database url here) <br>
 SECRET_KEY = (write your secret_key here ) <br>
 
 ### Cloudinary
-CLOUD_NAME = (paste your cloud name url here) <br>
+CLOUD_NAME = (paste your cloud name  here) <br>
 API_KEY = (paste your api key here) <br>
 API_SECRET = (paste your secret key here) <br>
