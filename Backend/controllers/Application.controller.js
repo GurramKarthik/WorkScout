@@ -20,7 +20,8 @@ const checkUser = async (userId) => {
 
 export const applyJob = async (req, res)=>{
     try {
-        const userId = req.userId;
+        // const userId = req.userId;
+        const {id:userId}  = req.body
         const {id:jobId }= req.params
 
         const job = await Job.findById(jobId)

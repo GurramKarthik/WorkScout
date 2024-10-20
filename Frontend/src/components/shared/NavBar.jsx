@@ -23,9 +23,22 @@ const NavBar = () => {
       </h2>
               
       <div id="navOptions"  >
-        <li><Link to="/" style={{textDecoration:"none", color:"black"}}>Home</Link></li>
-        <li><Link to="/jobs" style={{textDecoration:"none", color:"black"}}>Jobs</Link> </li>
-        <li><Link to="/browse" style={{textDecoration:"none", color:"black"}}>Browse</Link></li>
+      { user && user.role==="Recruter" ? (
+          <>
+              <li><Link to="/admin/companies" style={{textDecoration:"none", color:"black"}}>Company</Link></li>
+              <li><Link to="/admin/jobs" style={{textDecoration:"none", color:"black"}}>Jobs</Link> </li>
+          </>
+      ) : (
+          <> 
+              <li><Link to="/" style={{textDecoration:"none", color:"black"}}>Home</Link></li>
+              <li><Link to="/jobs" style={{textDecoration:"none", color:"black"}}>Jobs</Link> </li>
+              <li><Link to="/browse" style={{textDecoration:"none", color:"black"}}>Browse</Link></li>
+          </>
+      )
+      }
+
+
+        
         {user ? (
           // If user is logged in
           

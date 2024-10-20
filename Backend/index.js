@@ -9,6 +9,7 @@ import userRouter from "./routers/user.router.js";
 import companyRouter from "./routers/company.router.js";
 import jobRouter from "./routers/job.router.js";
 import applicationRouter from "./routers/application.router.js"
+import cookieParser from "cookie-parser";
 
 
 const app = express();
@@ -24,9 +25,10 @@ app.use(cookie());
 
 const corsOptions ={
     origin:"http://localhost:5173", // this is react's url
-    credentials: true
+    credentials: true,                
 } 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 
 

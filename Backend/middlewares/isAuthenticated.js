@@ -3,11 +3,11 @@ import jwt from "jsonwebtoken"
 const isAuthenticated = async (req, res, next) =>{
     try {
         const token = req.cookies.token;
-        
+      
         // token not present means un-autherised access is being done
         if(!token){
             return res.status(401).json({
-                message: "User not Authenticated",
+                 message: "token is missing",
                 success: false,
               });
         }

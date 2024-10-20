@@ -123,7 +123,9 @@ const JobDetails = () => {
                             </div>
                             
                         </div>
-{/*                         
+
+                        {
+
                         user ? (
                              <>
                                 {
@@ -136,14 +138,14 @@ const JobDetails = () => {
                              </>
                            ) : (
                             <Link to="/login" style={{ color:"#fff" , textDecoration:"none"}}>  <button> Login To Apply </button> </Link>
-                           ) */}
+                           ) 
 
-                       <button
+                        }
+                       {/* <button
                         onClick={isApplied ? null : applyJobHandler}
-                        disabled={isApplied}
-                       >
+                        disabled={isApplied}>
                         { isApplied ? "Already Aplied" : "Apply Now"}
-                       </button>
+                       </button> */}
                         
                         
                         <div id='applied'>
