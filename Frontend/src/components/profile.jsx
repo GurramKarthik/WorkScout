@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "./shared/NavBar";
-import "./profile.scss";
-import avatar from "../assets/avatar.png";
-import { Link } from "react-router-dom";
+import "./Css/profile.scss";
 import Application from "./Application";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";

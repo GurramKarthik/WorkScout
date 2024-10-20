@@ -1,5 +1,5 @@
 import React from "react";
-import "./home.scss";
+import "./Css/home.scss"
 import developer from "../assets/developer.png";
 import { Link } from "react-router-dom";
 

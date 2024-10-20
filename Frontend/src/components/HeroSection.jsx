@@ -1,5 +1,5 @@
 import React from "react";
-import "./home.scss";
+import "./Css/home.scss";
 import avatar from "../assets/avatar.png";
 import jobImg from "../assets/jobImg.jpg";
 import Category from "./category";

@@ -7,7 +7,7 @@ import Footer from './Footer'
 import useGetAllJobs from '@/Hooks/useGetAllJobs'
 
 const Home = () => {
-  useGetAllJobs();
+  useGetAllJobs(); // CUSTOM HOOK TO GET ALL JOBS
   return (
     <div id='home'>
         <NavBar/>

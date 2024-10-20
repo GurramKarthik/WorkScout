@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../Css/Navbar.scss";
-import avatar from "../../assets/avatar.png";
 import NavProfile from "./NavProfile.jsx";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,20 +12,6 @@ const NavBar = () => {
   const { user } = useSelector(store => store.auth);
 
   const [isProfile, setIsProfile] = useState(false);
-  // const avatarRef = useRef(); // for removing profile popup when clicked on scrren
-  // const toogleProfile = () => {
-  //   
-  // };
-
-  // useEffect(()=>{
-  //   let handler = (e)  =>{
-  //     if(avatarRef.current.contains(e.target)){
-  //       setIsProfile(!isProfile);
-  //     }
-  //   }
-
-  //   document.addEventListener("mousedown", handler);
-  // })
   
 
   return (

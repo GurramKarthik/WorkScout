@@ -2,7 +2,7 @@ import React from "react";
 import JobCard from "./JobCard";
 import NavBar from "./shared/NavBar";
 import JobCards2 from "./JobCards2";
-import "./home.scss"
+import "./Css/home.scss"
 
 
 const jobs = [1, 2, 3];

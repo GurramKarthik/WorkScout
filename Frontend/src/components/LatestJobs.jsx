@@ -2,6 +2,8 @@ import React from "react";
 import search from "../assets/search.png";
 import JobCard from "./JobCard";
 import { useSelector } from "react-redux";
+import "./Css/home.scss";
+
 
 // const jobs = [1,2,3,4,5,6,7,8];
 
