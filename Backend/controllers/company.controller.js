@@ -1,5 +1,7 @@
 import { Company } from "../models/Company.js";
 import { User } from "../models/User.js";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 const checkUser = async (userId) => {
   // getting the userId form Token .
@@ -27,8 +29,8 @@ export const registerCompany = async (req, res) => {
     }
 
     // checking if company alrady exsists or not
-    let company = await Company.findOne({ name: companayName });
-    if (company) {
+    let companyExists = await Company.findOne({ name: companayName });
+    if (companyExists) {
       return res.status(400).json({
         message: "Company already exists",
         success: false,
@@ -54,7 +56,7 @@ export const registerCompany = async (req, res) => {
       });
     }
 
-    const newCompany = await Company.create({
+    const company = await Company.create({
       name: companayName,
       userId: user._id,
     });
@@ -97,8 +99,16 @@ export const getCompany = async (req, res) => {
 };
 
 export const getCompanyById = async (req, res) => {
+    
+
+
   try {
     const { companyId } = req.params;
+    if(!companyId){
+      console.log(" comsjs: ",companyId)
+        return;
+    }else{
+      
     const company = await Company.findById(companyId);
     if (!company) {
       return res.status(404).json({
@@ -112,20 +122,33 @@ export const getCompanyById = async (req, res) => {
       company,
       success: true,
     });
+  }
   } catch (error) {
     console.log(error);
   }
+
 };
 
 export const updateCompany = async (req, res) => {
   try {
     const { name, description, website, location } = req.body;
     const { companyId } = req.params;
-    const file = req.file; // compnay logo
 
+    var logo = null ;
+
+    if(req.file){
+      const file = req.file;  // compnay logo
+    
     // cloudera comes here.
+      const fileUri = getDataUri(file);
 
-    const updatedData = { name, description, website, location };
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      logo = cloudResponse.secure_url;
+    }else{
+      console.log(" No file ");
+    }
+
+    const updatedData = { name, description, website, location, logo: logo ? logo : "" };
 
     const user = await checkUser(req.userId);
     if (!user) {

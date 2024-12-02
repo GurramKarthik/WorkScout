@@ -1,13 +1,30 @@
 import React from "react";
 import "./Css/home.scss"
 import developer from "../assets/developer.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "@/redux/jobSlice";
 
 
-const category = [1, 2, 3, 4, 5, 6];
+const category = [
+  "Data Science",
+  "Frontend Developer",
+  "Backend Developer",
+  "Full Stack Developer",
+  "Java Developer",
+  "ML Engineer"
+];
 
 
 const Category = () => {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleSearch = (search) =>{
+      dispatch(setSearchQuery(search));
+      navigate("/browse")
+  }
+
   return (
     <div id="container1">
     <h1 style={{ marginBottom: "3vmin", justifySelf: "start" }}>
@@ -17,15 +34,15 @@ const Category = () => {
     <div id="jobsCategory">
       {category.slice(0, 5).map((cate, index) => {
         return (
-          <div className="Categ" key={index}>
+          <div className="Categ" key={index}  onClick={()=>{handleSearch(cate)}} >
             <img src={developer} alt="developer" />
-            <p>Category</p>
+            <p>{cate}</p>
           </div>
         );
       })}
-      <div className="Categ exploreJobs">
-            <img src={developer} alt="developer" />
-            <p > <Link to="/jobs" >Explore</Link>  <span style={{color:"#4e8397"}} >&#8599;</span> </p>
+
+      <div className="Categ " onClick={()=>{navigate("/jobs")}}>
+            <p > ... </p>
       </div>
     </div>
   </div>

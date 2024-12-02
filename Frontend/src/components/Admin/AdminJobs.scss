@@ -1,0 +1,100 @@
+#AdminJobsPage{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f1f1f1;
+    padding-top: 18vmin;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+
+    p{
+        margin: 0px;
+    }
+}
+
+
+
+#container{
+    width: 60%;
+    background-color: #fff;
+    padding: 2vmin;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.514);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vmin;
+
+    input{
+        margin: 0;
+        height: 5vmin;
+        padding: 1vmin 1.5vmin;
+        border-radius: 5px;
+        border: 1px solid #295174;
+        width: 100%;
+    }
+
+    button{
+        padding: 1vmin 2vmin;
+        margin: 3vmin 0px;
+        background-color: #4e8397;
+        border-radius: 10px;
+        color: #f1f1f1;
+        border: none;
+
+        &:hover{
+            background-color: #387085;
+        }
+
+    }
+
+    
+    .dropdown-toggle {
+        background-color: #3c4145; 
+        color: white; 
+        &:hover{
+            background-color: #515e68;
+        }
+    }
+    
+
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+
+    input{
+        flex-grow: 1;
+        
+    }
+}
+
+.container2{
+    
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vmin;
+    textarea{
+        width: 100%;
+    }
+
+
+}
+
+
+#jobDetails{
+    color: black;
+    background-color: #fff;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vmin;
+    margin: 4vmin;
+    margin-bottom: 10vmin;
+ 
+}
+
+.part1{
+    width:50% ;
+    display: flex; 
+}

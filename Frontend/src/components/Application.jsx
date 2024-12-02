@@ -1,11 +1,44 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import store from '@/redux/store'
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { APPLICATION_END_POINT } from './utils/constants'
+import { setAllUserApplications } from '@/redux/application'
+import { Badge } from 'react-bootstrap'
+import NavBar from './shared/NavBar'
 
-const appplicatoins = [1,2,3,4]
+
 const Application = () => {
+
+  const {allUserApplications} = useSelector(store => store.application)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+        const findAppliedApplications = async () =>{
+          try {
+            const res = await axios.get(`${APPLICATION_END_POINT}/get`, {withCredentials:true});
+            
+            if(res.data.success){
+                dispatch(setAllUserApplications(res.data.applications))
+                console.log(res.data.applications);
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        }
+
+        findAppliedApplications();
+  },[allUserApplications])
+
   return (
+
+    <div>
+      <NavBar/>
     <div id='application'>
-        <table  >
+
+        <table  style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0vmin 2vmin', textAlign: 'center' }}>
             <thead>
                 <tr>
                     <th>Date</th>
@@ -17,35 +50,23 @@ const Application = () => {
             </thead>
             <tbody>
               {
-                appplicatoins.map((applicaiton, index) =>{
-                  let style = {}
-                    if(applicaiton.status === "pending"){
-                        style ={
-                          backgroundColor : "rgb(230, 220, 50)",
-                          color:"black"
-                        }
-                    }else if (applicaiton.status === "accepted"){
-                        style ={
-                          backgroundColor : "rgb(53, 184, 53)",
-                          color:"black"
-                        }
-                    }else{
-                      style ={
-                        backgroundColor : "#eb4746",
-                        color:"black"
-                      }
-                    }
-
+                allUserApplications.map((applicaiton) =>{
                     return (
                         
-                        <tr key={index} style={style} >
-                            <td>17-10-2024</td>
-                            <td>SDE</td>
-                            <td>Google</td>
-                            <td> <Link  style={{color:style.color}}>application </Link> </td>
-                            <td>Rejected</td>
+                        <tr key={applicaiton._id}  >
+                            {/* <td>{applicaiton.createdAt.split("T")[0]}</td> */}
+                            <td></td>
+                            <td> {applicaiton.job.title} </td>
+                            <td>{applicaiton.job.company.name} </td>
+                            <td onClick={()=>{navigate(`/get/${applicaiton.job._id}`)}} >application</td>
+                            <td>
+                              {({
+                                pending: <Badge bg="warning">pending</Badge>,
+                                rejected: <Badge bg="danger">rejected</Badge>,
+                                accepted: <Badge bg="success">accepted</Badge>,
+                              }[applicaiton.status] || null)}
+                            </td>
                         </tr>
-                        
                     )
                 })
               }
@@ -53,6 +74,7 @@ const Application = () => {
             </tbody>
 
         </table>
+    </div>
     </div>
   )
 }

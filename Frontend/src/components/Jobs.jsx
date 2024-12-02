@@ -1,14 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Css/Jobs.scss";
 import NavBar from "./shared/NavBar";
 import JobCards2 from "./JobCards2";
 import Filters from "./Filters";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setSearchQuery } from "@/redux/jobSlice";
 
-const jobs = [1, 2, 3, 4, 5, 6, 7, 8];
+
 
 const Jobs = () => {
-  const { allJobs } = useSelector((store) => store.job);
+  const { allJobs, searchQuery } = useSelector((store) => store.job);
+  console.log(allJobs)
+  const [filteredJobs, setFilteredJobs] = useState(allJobs);
+  
+  console.log(filteredJobs)
+
+
+   // onleaving the paging setting searched query to null
+   const dispatch = useDispatch();
+   useEffect(()=>{
+    return () =>{
+        dispatch(setSearchQuery(""))
+    }
+},[])
+
+
+  useEffect(() => {
+    if (!searchQuery.location && !searchQuery.profile && !searchQuery.salary) {
+        // If no filter is applied, set filteredJobs to allJobs
+        setFilteredJobs(allJobs);
+    } else {
+        // Apply filters only if there's an active filter
+        let result = allJobs;
+
+        if (searchQuery.location) {
+            result = result.filter((job) => job.location.includes(searchQuery.location));
+        }
+        if (searchQuery.profile) {
+            result = result.filter((job) => job.title.includes(searchQuery.profile));
+        }
+        if (searchQuery.salary) {
+            result = result.filter((job) => job.salaryRange === searchQuery.salary);
+        }
+        setFilteredJobs(result);
+    }
+    }, [searchQuery.location, searchQuery.profile, searchQuery.salary, allJobs]);
+
+
+  
+  
+
 
   return (
     <div>
@@ -16,11 +58,11 @@ const Jobs = () => {
 
       <div id="JobPage">
         <div style={{ width: "50%" }}>
-          {allJobs.length <= 0 ? (
+          {filteredJobs.length <= 0 ? (
             <p> No Jobs Avilable Right Now</p>
           ) : (
             <>
-              {allJobs.map((job) => {
+              {filteredJobs.map((job) => {
                 return <JobCards2 key={job?._id} job={job} />;
               })}
             </>

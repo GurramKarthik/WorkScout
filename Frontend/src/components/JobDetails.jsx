@@ -16,11 +16,13 @@ const JobDetails = () => {
     const {jobId} = useParams();
     const id = jobId// beacuse in Backend its name is Id for apply in application. But FOr jobs its jobId so need to be name need to be changed
     let initalApplied = false;
-    if(user){
-        initalApplied  =  singleJob?.application?.some( applicantion => applicantion.applicant._id === user._id)  || false
-    }
-    const [isApplied, setIsApplied] = useState(initalApplied)
     
+    const [isApplied, setIsApplied] = useState(
+        singleJob?.application?.find( applicantion => applicantion.applicant === user._id)  ? true : false
+    )
+
+    console.log(" applied ",isApplied);
+
     const applyJobHandler= async () =>{
         try {
 
@@ -57,7 +59,8 @@ const JobDetails = () => {
                     const res = await axios.get(`${JOB_END_POINT}/get/${jobId}`, {withCredentials:true})
                     if(res.data.success){
                         dispatch(setSingleJob(res.data.job)); // setting the single job value present in redux.jobSlice
-                        setIsApplied(res.data.job.application.some( applicantion => applicantion.applicant._id === user._id))
+                        
+                        setIsApplied(res.data.job.application.some( applicantion => applicantion.applicant === user._id))
                         // ensuing the sate is in sync with the fetched data.
                     }   
                 } catch (error) {
@@ -70,10 +73,10 @@ const JobDetails = () => {
 
 
   return (
-    <div>
+    <div >
         <NavBar/>
         <div id='detailsPage'>
-            <div id='jobDetails'>
+            <div id='jobDetails' style={{backgroundColor:"#f0f0f0"}}>
                 <div id='headerPart'>
                     <div id='detailsProfile'>
                         <h1> {singleJob?.title}</h1>

@@ -6,25 +6,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import axios from "axios";
 import { USER_END_PONIT } from "./utils/constants";
-import { setLoading, setUser } from "@/redux/authSlice";
+import {setUser } from "@/redux/authSlice";
 import { toast } from "react-toastify";
 
 const application = [1, 2, 3, 4];
 
 const Profile = () => {
-  const { user, loading } = useSelector(store => store.auth);
+  const { user } = useSelector(store => store.auth);
+  const [loading, setLoading] = useState(false)
   const dispatcher = useDispatch();
 
   const [edit, setEdit] = useState(false);
 
   const [input, setInput] = useState({
-    fullName: user?.fullName,
-    email: user?.email,
-    bio: user?.profile?.bio,
-    phoneNumber: user?.phoneNumber,
-    skills: user?.profile?.skills?.toString(),
-    profilePhoto: user?.profile?.profilePhoto,
-    file: user?.profile?.resume,
+    fullName: user?.fullName || "",
+    email: user?.email || "",
+    bio: user?.profile?.bio || "",
+    phoneNumber: user?.phoneNumber || "",
+    skills: user?.profile?.skills?.toString() || "",
+    profilePhoto: user?.profile?.profilePhoto || "",
+    file: user?.profile?.resume || "",
   });
 
   const handleEdit = () => {
@@ -41,7 +42,9 @@ const Profile = () => {
   }
   const handleUpdateProfile = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
+    console.log("details")
     const formData = new FormData();
     formData.append("fullName", input.fullName);
     formData.append("email", input.email);
@@ -83,6 +86,8 @@ const Profile = () => {
         setInput({...user})
 
         handleEdit();
+      }else{
+        console.log("error in subminting")
       }
     } catch (error) {
       console.log(error);
@@ -90,7 +95,7 @@ const Profile = () => {
         position: toast.BOTTOM_RIGHT,
       });
     } finally {
-      dispatcher(setLoading(false));
+      setLoading(false);
     }
   };
 
@@ -109,8 +114,8 @@ const Profile = () => {
                     <img src={user?.profile?.profilePhoto} alt="profile Pic" />
                   </div>
                   <div className="prifileName">
-                    <h2>{user?.fullName}</h2>
-                    <p>{user?.profile?.bio}</p>
+                    <h2>{user?.fullName || ""}</h2>
+                    <p>{user?.profile?.bio || ""}</p>
                   </div>
                 </div>
                 <div>
@@ -122,11 +127,11 @@ const Profile = () => {
               <div id="otherDetails">
                 <div className="details">
                   <i class="ri-mail-fill"></i>
-                  <p>{user?.email}</p>
+                  <p>{user?.email || ""}</p>
                 </div>
                 <div className="details">
                   <i class="ri-phone-fill"></i>
-                  <p>{user?.phoneNumber}</p>
+                  <p>{user?.phoneNumber || ""}</p>
                 </div>
 
                 {user?.profile?.skills.length > 0 ? (
@@ -136,7 +141,7 @@ const Profile = () => {
                       {user?.profile?.skills.map((skill, index) => {
                         return (
                           <div id="skill" key={index}>
-                            {skill}
+                            {skill || "" }
                           </div>
                         );
                       })}
@@ -151,7 +156,7 @@ const Profile = () => {
                 >
                   <h3>Resume: </h3>
                   <a href={user?.profile?.resume} target="blank" style={{ textDecoration: "none", fontSize: "3vmin" }}>
-                    {user?.profile?.resumeOriginalName}
+                    {user?.profile?.resumeOriginalName || "NA"}
                   </a>
                 </div>
               </div>
@@ -264,7 +269,6 @@ const Profile = () => {
           }}
         >
           <h2 style={{ textAlign: "center" }}>Applications Applied</h2>
-          <Application />
         </div>
       </div>
     </div>

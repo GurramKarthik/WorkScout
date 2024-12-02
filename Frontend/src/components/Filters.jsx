@@ -1,50 +1,63 @@
-import React from 'react'
-
+import { setSearchQuery } from '@/redux/jobSlice';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const filters = [
     {
-        filterType:"Location",
-        array:["Bengaluru", "Hyderabad", "Chenni", "Mumbai", "Vijac", "Gurugram", "Vijayawada" ,"Pune"]
+        filterType: "Location",
+        array: ["Bengaluru", "Hyderabad", "Chennai", "Mumbai", "Vijayawada", "Gurugram", "Pune"]
     },
     {
-        filterType:"Profile",
-        array:["Frontend Developer", "Backend Developer", "Full Satck Developer", "SDE-1", "SDE-2", "Data Science"]
+        filterType: "Profile",
+        array: ["Frontend Developer", "Backend Developer", "Full Stack Developer", "Java Backend Developer", "Data Science"]
     },
     {
-        filterType:"Salary",
-        array:["0 - 40k", "8LPA - 12LPA", " 20LPA"]
+        filterType: "Salary",
+        array: ["0-40k", "8LPA- 12LPA", "12LPA-20LPA"]
     }
-]
+];
 
 const Filters = () => {
-  return (
-    <div id='filters'>
-            <h1>Filters</h1>
-            <br/>
-            <hr/>
-            <br/>
-            {
-                filters.map((filter, index)=>{
-                    return (
-                        <div key={index} id='filterCard'>
-                            <h3>{filter.filterType}</h3>
-                            {
-                                    filter.array.map((ele, index)=>{
-                                            return (
-                                                <div key={index} style={{display:"flex", gap:"2vmin"}}>
-                                                    <input type='radio' name={filter.filterType} value={ele} />
-                                                    <p>{ele}</p>
-                                                </div>    
-                                            )
-                                    })
-                            }
-                            <br/>
-                        </div>   
-                    )
-                })
-            }
-    </div>
-  )
-}
+    const dispatch = useDispatch();
 
-export default Filters
+    const [locationFilter, setLocationFilter] = useState('');
+    const [profileFilter, setProfileFilter] = useState('');
+    const [salaryFilter, setSalaryFilter] = useState('');
+
+    const handleSearch = (filterType, value) => {
+        if (filterType === "Location") setLocationFilter(value);
+        else if (filterType === "Profile") setProfileFilter(value);
+        else if (filterType === "Salary") setSalaryFilter(value);
+
+        dispatch(setSearchQuery({ location: locationFilter, profile: profileFilter, salary: salaryFilter }));
+    };
+
+    return (
+        <div id='filters'>
+            <h1>Filters</h1>
+            <br />
+            <hr />
+            <br />
+            {filters.map((filterCategory, index) => (
+                <div key={index} id='filterCard'>
+                    <h3>{filterCategory.filterType}</h3>
+                    {filterCategory.array.map((ele, idx) => (
+                        <div key={idx} style={{ display: "flex", gap: "2vmin" }}>
+                            <input
+                                type='radio'
+                                id={ele}
+                                name={filterCategory.filterType}
+                                value={ele}
+                                onChange={() => handleSearch(filterCategory.filterType, ele)}
+                            />
+                            <label htmlFor={ele}>{ele}</label>
+                        </div>
+                    ))}
+                    <br />
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default Filters;

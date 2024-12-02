@@ -4,7 +4,12 @@
     align-items: center;
     padding: 5vmin 3vmin 1vmin 1.5vmax;
     
-
+    margin-bottom: 1vmin;
+    padding-bottom: 2vmin;
+    
+    width: 100%;
+    
+    height: 13vmin ;
 }
 #Nav h2{
     font-size: 2.5vmax;
@@ -52,10 +57,10 @@
 
 #navProfile{
     position: absolute;
-    right: 3vmin;
-    border: 2px solid rgba(94, 88, 88, 0.747);
-    border-radius: 20px 0px 20px 20px;
-    padding: 1em 1.5em;
+    right: 0vmin;
+    border: 1px solid rgba(49, 46, 46, 0.856);
+    border-radius: 10px ;
+    padding:  0.8em;
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -65,7 +70,6 @@
 .navProfileOptions{
     display: flex;
     align-items: center;
-    margin: 0.5vmin;
     gap: 1vmin;
     text-transform: capitalize;
 }

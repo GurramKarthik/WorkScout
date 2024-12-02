@@ -1,0 +1,240 @@
+#companyPage{
+    width: 100%;
+    background-color: #fafafa;
+    padding: 5vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5vmin;
+    padding-top: 18vmin;
+
+    p{
+        color: rgba(65, 61, 61, 0.842);
+        margin-top: 1vmin;
+    }
+
+
+    #cancleBtn{
+        margin-right: 3vmin;
+        margin-top: 7vmin;
+        padding: 1.5vmin 2vmin;
+        border: 1px solid rgb(122, 114, 114);
+        text-transform: capitalize;
+        align-self: flex-end;
+        background-color: #fff;
+        color: #000;
+        border-radius: 8px;
+
+        &:hover{
+            background-color: #eb4746;
+            transition-duration: 0.5s;
+        }
+        
+
+    
+    }
+    #continueBtn{
+        margin-right: 3vmin;
+        margin-top: 7vmin;
+        padding: 1.5vmin 2vmin;
+        border: 1px solid rgb(122, 114, 114);
+        text-transform: capitalize;
+        align-self: flex-end;
+        border-radius: 8px;
+        background-color: #3c4145;
+        color: #fff;
+        
+        &:hover{
+            background-color: #13171a;
+            transition-duration: 0.5s;
+            transform: scale(1.07);
+            color: #fff;
+
+
+        }
+        
+    }
+
+    #edit{
+        background-color: #fafafa;
+        border: none;
+
+        &:hover {
+            transform: scale(1.2);
+            color: white;
+            background-color: #e9734d;
+            padding: 3px;
+            transition-duration: 0.2s;
+            border-radius: 5px;
+        }
+    }
+
+
+    #postJob{
+        padding:1.5vmin 3vmin;
+        border-radius:5px;
+        border:1px solid rgb(63, 58, 58);
+        background-color: #201c1c;
+        color:#fff;
+        
+        &:hover{
+            background-color: black;
+            scale: 1.01;
+            transition: all;
+            transition-duration: 0.2s;
+        }
+        
+    }
+    
+}
+
+.compnayInput{
+    margin-top: 7vmin;
+
+    input{
+        margin-top: 1vmin;
+        width: 80%;
+        padding: 2vmin 3vmin;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: 3vmin;
+    }
+
+    
+}
+
+
+#detailPage{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vmin;
+    justify-content: center;
+
+    #cancle{
+        width: fit-content;
+        height: fit-content;
+        padding: 1vmin 3vmin;
+        justify-self: left;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+
+        &:hover{
+            background-color: #eb4746;
+            transition: all;
+            transition-duration: 0.4s;
+            color: #fff;
+            transform: translateX(-20px)
+
+        }
+    }
+
+}
+
+#photoSide{
+    width: 20%;
+    height: 50vmin;
+    border-radius:5%;
+    padding: 2vmin;
+    background-color: #4e8397;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    #photo{
+        width: 80%;
+        height: 70%;
+        position: relative;
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    #camBtn{
+        
+        border:none ;
+        position:absolute;
+        right: 0%;
+        top: 8%;
+        color: #000;
+        padding: 1vmin;
+        border-radius: 50%;
+        font-size: larger;
+        background-color: rgb(255, 255, 255);
+        
+        &:hover{
+
+            transform: scale(1.1);
+        }
+        
+    }
+}
+
+#updateSide{
+    width: 50%;
+
+    background-color: #dcd6ca;
+    padding: 2vmin;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+
+    #submit{
+        bottom: 0%;
+        align-self: center;
+        margin-top: 2vmin;
+        padding: 1vmin 3vmin;
+        border-radius: 5px;
+        border: 1px solid rgb(56, 52, 52);
+        background-color: #33b249;
+
+        &:hover{
+            background-color: #329442;
+        }
+
+    }
+}
+
+.detailsInput{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vmin;
+    align-items: center;
+    margin: 1vmin;
+    
+    p{
+        width: 14%;
+        font-size: 3vmin;
+    }
+    
+    
+    input{
+        flex-grow: 1;
+        padding: 1vmin 2vmin;
+        background-color: none;
+        border-radius: 5px;
+        font-size: 2.4vmin;
+        border: 1px solid rgb(48, 44, 44);
+    }
+    textarea{
+        flex-grow: 1;
+        padding: 1vmin 2vmin;
+        background-color: none;
+        border-radius: 5px;
+        font-size: 2.4vmin;
+        border: 1px solid rgb(48, 44, 44);
+    }
+
+   
+}
+
+
+
+// Jobs

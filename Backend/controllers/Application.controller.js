@@ -131,7 +131,7 @@ export const getApplcations = async (req, res)=>{
          return res.status(200).json({
              message:"Applications found",
              job,
-             success:false
+             success:true
          })
  
     } catch (error) {

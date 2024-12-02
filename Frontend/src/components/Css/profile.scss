@@ -2,7 +2,6 @@
     width: 100%;
     min-height: 80vh;
     background-color: #fafafa;
-    padding: 5vmin 10vmin;
     color: #383838;
     display: flex;
     flex-direction: column;
@@ -54,12 +53,11 @@
     flex-direction: column;
     gap:2vmin;
     text-transform: capitalize;
+    p{
+        color: rgb(92, 87, 87);
+        font-weight: 400;
+    }
 }
-.prifileName p{
-    color: rgb(92, 87, 87);
-    font-weight: 400;
-}
-
 #editBtn{
     font-size: 3vmin;
     background-color: #fff;
@@ -104,8 +102,9 @@
 }
 
 #application{
-        width: 100%;
+        width: 80%;
         min-height: 20vh ;
+        margin: 0% auto;
 }
 
 #form{
@@ -154,44 +153,38 @@
 }
 
 
+
+
 table {
     width: 100%;
     border-collapse: separate; 
-    border-spacing: 0 2vmin; 
+    border-spacing: 1vmin 2vmin;
     text-align: center;
-  }
+}
 
 
-  thead th {
-    color: black;
-    font-size: 1em; 
-    padding: 3vmin 2vmin; 
-    text-transform: uppercase;
-  }
+thead th {
+color: black;
+font-size: 1em; 
+padding: 3vmin 2vmin; 
+text-transform: uppercase;
+}
 
+thead{
+box-shadow: 3px 3px 20px rgba(77, 74, 74, 0.562); 
+border-radius: 10px;
+background-color: #fff;
 
-  thead{
-    box-shadow: 3px 3px 20px rgba(77, 74, 74, 0.562); 
-    border-radius: 10px;
-    background-color: #fff;
- 
-  }
-  tbody{
+}
+tbody{
     border-collapse: separate; 
+}
 
-  }
+tbody tr {
+    box-shadow: 2px 2px 10px rgba(77, 74, 74, 0.562);
 
-  tbody tr {
-    box-shadow: 2px 2px 15px rgba(77, 74, 74, 0.562);  
-  }
-  tbody td {
+}
+tbody td {
     padding: 3vmin 0px;
     text-transform: capitalize;
-  }
-
- 
-
-  
-
- 
-  
+}

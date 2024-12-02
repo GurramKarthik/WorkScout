@@ -51,6 +51,7 @@ export const postJob = async (req, res) => {
       });
     }
 
+
     const user = await checkUser(req.userId);
     if (!user) {
       return res.status(401).json({
@@ -137,15 +138,8 @@ export const getJobById = async (req, res) => {
   try {
     const { jobId } = req.params;
     const job = await Job.findById(jobId).populate({
-      path:"company",
-      path:"application",
-      options:{sort:{createdAt:-1}},
-      populate:{
-        path:"applicant",
-        options:{sort:{createdAt:-1}},
-
-      }
-  });;
+      path:"application"
+    }).sort({createdAt:-1});
     if (!job) {
       return res.status(404).json({
         message: "Job not found",
@@ -182,8 +176,10 @@ export const getJobByRecruter = async (req, res) => {
       });
     }
 
-    const jobsCreated = await Job.find({created_by:user._id});
-    if(!jobsCreated){
+    const adminJobs = await Job.find({created_by:user._id}).populate({
+      path:"company"
+    });
+    if(!adminJobs){
         res.status(404).json({
             message: "Jobs not found",
             success: false,
@@ -192,7 +188,7 @@ export const getJobByRecruter = async (req, res) => {
 
     return res.status(200).json({
         message: "Jobs found",
-        jobsCreated,
+        adminJobs,
         success: true,
       });
 

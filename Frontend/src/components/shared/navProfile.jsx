@@ -36,37 +36,31 @@ const NavProfile = () => {
   return (
     <div id="navProfile">
       <div className="navProfileOptions">
-        <img
-          src={user?.profile?.profilePhoto}
-          alt="Avatar"
-          style={{
-            width: "2.5vmax",
-            height: "2.5vmax",
-            borderRadius: "50%",
-          }}
-        />
+        {user?.profile?.profilePhoto && (
+          <img
+            src={user?.profile?.profilePhoto}
+            style={{
+              width: "2.5vmax",
+              height: "2.5vmax",
+              borderRadius: "50%",
+            }}
+          />
+        )}
+
         <div>
-          <p> Hey, {user?.fullName}</p>
+          <p style={{textTransform:"uppercase", textAlign:"center"}}>{user?.fullName}</p>
         </div>
       </div>
 
+      <hr/>
       {user && user.role === "Candidate" ? (
         <>
           <div className="navProfileOptions">
-            <img
-              src={profile}
-              alt="profile"
-              style={{
-                width: "3vmax",
-                height: "2.5vmax",
-                borderRadius: "50%",
-              }}
-            />
             <Link
               to="/profile"
               style={{ textDecoration: "none", color: "black" }}
             >
-              <p> View profile </p>
+              <p> <i class="ri-user-line"></i> View profile </p>
             </Link>
           </div>
         </>
@@ -75,25 +69,11 @@ const NavProfile = () => {
       )}
 
       <div className="navProfileOptions">
-        <img
-          src={logout}
-          alt="logoutImg"
-          style={{
-            width: "3vmax",
-            height: "2.5vmax",
-            borderRadius: "50%",
-          }}
-        />
-        <p>
-          {" "}
-          <Link
-            to="/"
-            onClick={logoutHandler}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            logout
-          </Link>{" "}
-        </p>
+        <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <p onClick={logoutHandler}>
+            <i class="ri-logout-box-r-line"></i> logout
+          </p>
+        </Link>{" "}
       </div>
     </div>
   );
